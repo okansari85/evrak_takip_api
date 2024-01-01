@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirmsController;
+use App\Http\Controllers\NaceCodesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::get('get_main_companies',[FirmsController::class, 'getMainCompanies']);
 Route::apiResource('companies',FirmsController::class);
+Route::apiResource('nace_codes',NaceCodesController::class);
 
 
 
