@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             FirmsTypeSeeder::class,
             ProvinceSeeder::class,
             DistrictSeeder::class,
+            NaceCodesSeeder::class,
         ]);
     }
 }

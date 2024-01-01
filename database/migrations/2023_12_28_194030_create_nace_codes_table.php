@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('nace_code');
             $table->text('business');
             $table->string('hazard_class');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 
