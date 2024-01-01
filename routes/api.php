@@ -23,4 +23,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 });
 
-Route::get('get_main_companies',[FirmsController::class, 'getMainFirms']);
+Route::get('get_main_companies',[FirmsController::class, 'getMainCompanies']);
+Route::apiResource('companies',FirmsController::class);
+
+
+
