@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirmsController;
 use App\Http\Controllers\NaceCodesController;
 use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\LogosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Route::get('get_main_companies',[FirmsController::class, 'getMainCompanies']);
 Route::apiResource('companies',FirmsController::class);
 Route::apiResource('nace_codes',NaceCodesController::class);
 Route::apiResource('provinces',ProvinceController::class);
+
+Route::post('upload-files', [LogosController::class,'store'])->middleware('optimizeImages'); 
+Route::post('update-file', [LogosController::class, 'update_file'])->middleware('optimizeImages');
 
 
 
