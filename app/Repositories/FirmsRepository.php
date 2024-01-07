@@ -92,8 +92,8 @@ class FirmsRepository implements IFirms
 
     public function deleteCompany($id){
 
-        $company = Firms::find($id);
-        $company->update();
+        Firms::withoutGlobalScopes()->find($id)->delete();
+        //firma id yi geri döndür
 
         return response()->json($id,200);
 

@@ -41,6 +41,11 @@ class FirmsController extends Controller
         return response()->json($this->firmsRepository->updateCompany($request,$id),200);
     }
 
+    public function destroy($id)
+    {
+        return response()->json($this->firmsRepository->deleteCompany($id),200);
+    }
+
 
 
 }
