@@ -4,59 +4,41 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Logos;
-use App\Traits\Upload; //import the trait
-use Illuminate\Support\Str;
+
+
+use App\Interfaces\ILogos;
 
 
 class LogosController extends Controller
 {
-    use Upload;//add this trait
+
+    private ILogos $logosRepository;
+
+    public function __construct(ILogos $_logos_repository)
+    {
+        $this->logosRepository = $_logos_repository;
+    }
+
     //
 
     public function store(Request $request)
     {
 
-        //file_id var mı yok mu bak 
-        
-
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $ext = $file->getClientOriginalExtension();
-
-
-            $path = $this->UploadFile($file, 'Logos');//use the method in the trait
-            //ext ve name alınacak 
-            
-            Logos::create([
-                'path' => $path,
-                'name' => Str::of($path)->basename($ext),
-                'ext' => $ext
-            ]);
-
-
-            return response()->json('File Uploaded Successfully',200);
+            return response()->json($this->logosRepository->uploadLogo($file),200);
         }
     }
 
     public function update_file(Request $request) //POST
     {
-        //get the file id and retrieve the file record from the database
+
         $file_id = $request->input('file_id');
-        $file = Logos::where('id', $file_id)->first();
-        //check if the request has a file
-        if ($request->hasFile('file')) {
-            //check if the existing file is present and delete it from the storage
-            if (!is_null($file->path)) {
-                $this->deleteFile($file->path);
-            }
-            //upload the new file
-            $path = $this->UploadFile($request->file('file'), 'Logos');
+
+        if ($request->hasFile('file') && $file_id!=0) {
+            $file =  $request->file('file');
+            return response()->json($this->logosRepository->updateLogo($file,$file_id),200);
         }
-        //upadate the file path in the database
-        $file->update(['path' => $path]);
 
-        //redirect with the success message
-
-        return response()->json('File Updated Successfully',200);
     }
 }

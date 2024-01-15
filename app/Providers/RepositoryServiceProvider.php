@@ -13,6 +13,10 @@ use App\Repositories\NaceCodesRepository;
 use App\Interfaces\IProvince;
 use App\Repositories\ProvincesRepository;
 
+use App\Interfaces\ILogos;
+use App\Repositories\LogosRepository;
+
+
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -26,6 +30,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IFirms::class, FirmsRepository::class);
         $this->app->bind(INaceCodes::class, NaceCodesRepository::class);
         $this->app->bind(IProvince::class, ProvincesRepository::class);
+        $this->app->bind(ILogos::class, LogosRepository::class);
 
 
     }
